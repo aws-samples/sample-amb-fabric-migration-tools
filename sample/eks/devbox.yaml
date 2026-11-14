@@ -1,0 +1,57 @@
+# Operator host ("devbox") for the Fabric-on-EKS test destination.
+# In a private subnet of the cluster's VPC; reached through SSM only (no inbound rules, no public IP).
+# It administers the cluster through the private API endpoint (an EKS access entry grants it cluster admin)
+# and runs fabric-rebroadcast against the internal load balancer.
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  VpcId: { Type: AWS::EC2::VPC::Id }
+  SubnetId: { Type: AWS::EC2::Subnet::Id }
+  ClusterName: { Type: String, Default: fabric-eks }
+  BucketName: { Type: String }
+  InstanceType: { Type: String, Default: c6i.xlarge }
+  ImageId:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64
+Resources:
+  Role:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: fabric-eks-devbox
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement: [{ Effect: Allow, Principal: { Service: ec2.amazonaws.com }, Action: sts:AssumeRole }]
+      ManagedPolicyArns: [arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore]
+      Policies:
+        - PolicyName: eks-and-bucket
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - { Effect: Allow, Action: [eks:DescribeCluster, eks:ListClusters], Resource: "*" }
+              - { Effect: Allow, Action: [s3:ListBucket], Resource: !Sub "arn:aws:s3:::${BucketName}" }
+              - { Effect: Allow, Action: [s3:GetObject, s3:PutObject], Resource: !Sub "arn:aws:s3:::${BucketName}/*" }
+      Tags: [{ Key: project, Value: fabric-eks }]
+  Profile:
+    Type: AWS::IAM::InstanceProfile
+    Properties: { InstanceProfileName: fabric-eks-devbox, Roles: [!Ref Role] }
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: fabric-eks devbox (no inbound; SSM is outbound only)
+      VpcId: !Ref VpcId
+      SecurityGroupEgress: [{ IpProtocol: "-1", CidrIp: 0.0.0.0/0 }]
+      Tags: [{ Key: Name, Value: fabric-eks-devbox }, { Key: project, Value: fabric-eks }]
+  Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref ImageId
+      InstanceType: !Ref InstanceType
+      SubnetId: !Ref SubnetId
+      IamInstanceProfile: !Ref Profile
+      SecurityGroupIds: [!Ref SecurityGroup]
+      MetadataOptions: { HttpTokens: required }
+      BlockDeviceMappings: [{ DeviceName: /dev/xvda, Ebs: { VolumeSize: 60, VolumeType: gp3, Encrypted: true } }]
+      Tags: [{ Key: Name, Value: fabric-eks-devbox }, { Key: project, Value: fabric-eks }]
+Outputs:
+  InstanceId: { Value: !Ref Instance }
+  RoleArn: { Value: !GetAtt Role.Arn }
+  SecurityGroupId: { Value: !Ref SecurityGroup }

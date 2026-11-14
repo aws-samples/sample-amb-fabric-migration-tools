@@ -1,0 +1,6 @@
+node_modules/
+dist/
+*.block
+state/
+report/
+!test/fixtures/*.block

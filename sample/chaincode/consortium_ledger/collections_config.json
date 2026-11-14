@@ -1,0 +1,38 @@
+[
+  {
+    "name": "allOrgs",
+    "policy": "OR(ALL_ORGS)",
+    "requiredPeerCount": 0,
+    "maxPeerCount": 3,
+    "blockToLive": 0,
+    "memberOnlyRead": true,
+    "memberOnlyWrite": true
+  },
+  {
+    "name": "pairAB",
+    "policy": "OR('Org1MSP.member','Org2MSP.member')",
+    "requiredPeerCount": 0,
+    "maxPeerCount": 3,
+    "blockToLive": 0,
+    "memberOnlyRead": true,
+    "memberOnlyWrite": true
+  },
+  {
+    "name": "onlyA",
+    "policy": "OR('Org1MSP.member')",
+    "requiredPeerCount": 0,
+    "maxPeerCount": 1,
+    "blockToLive": 0,
+    "memberOnlyRead": true,
+    "memberOnlyWrite": true
+  },
+  {
+    "name": "ephemeral",
+    "policy": "OR(ALL_ORGS)",
+    "requiredPeerCount": 0,
+    "maxPeerCount": 3,
+    "blockToLive": 40,
+    "memberOnlyRead": true,
+    "memberOnlyWrite": true
+  }
+]

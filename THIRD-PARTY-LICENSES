@@ -1,0 +1,75 @@
+# Third-Party Notices
+
+This repository is licensed under the MIT No Attribution License (MIT-0) in
+[`LICENSE`](LICENSE). The MIT-0 license does **not** apply to the third-party
+material identified below, which keeps its own license.
+
+## Hyperledger Fabric (orderer patch)
+
+[`rebroadcast/orderer-patch/fabric-v2.5.14-migration.patch`](rebroadcast/orderer-patch/fabric-v2.5.14-migration.patch)
+is a modification of [Hyperledger Fabric](https://github.com/hyperledger/fabric)
+v2.5.14, which is licensed under the Apache License, Version 2.0. The patch
+changes two Fabric source files:
+
+- `orderer/common/msgprocessor/expiration.go`
+- `orderer/consensus/etcdraft/chain.go`
+
+The patch contains unchanged context lines from those files as well as the
+changes. The patch, and any orderer binary or image built from it, are licensed
+under the Apache License, Version 2.0, in
+[`rebroadcast/orderer-patch/LICENSE`](rebroadcast/orderer-patch/LICENSE). Fabric's
+notice is reproduced in [`rebroadcast/orderer-patch/NOTICE`](rebroadcast/orderer-patch/NOTICE).
+[`rebroadcast/orderer-patch/Dockerfile`](rebroadcast/orderer-patch/Dockerfile) builds
+on the unmodified `hyperledger/fabric-orderer:2.5.14` image, also Apache-2.0.
+
+## Dependencies
+
+This repository distributes no third-party packages: none are vendored or
+bundled. `npm ci` fetches the npm dependencies listed in `package-lock.json` and
+`rebroadcast/package-lock.json`, and the Go toolchain fetches the sample
+chaincodes' modules when they are built. Each package's license files are
+distributed with the package source that the package manager fetches.
+
+The dependencies are licensed under MIT, Apache-2.0, ISC, BSD-2-Clause,
+BSD-3-Clause and 0BSD, apart from the packages below. Each package is listed
+with the version the lockfile resolves and its upstream source.
+
+Runtime dependencies:
+
+- [`sjcl`](https://github.com/bitwiseshiftleft/sjcl) 1.0.9, a dependency of
+  `fabric-common`, is offered under BSD-2-Clause or GPL-2.0. It is used here
+  under BSD-2-Clause: Copyright (c) 2009-2015, Emily Stark, Mike Hamburg and
+  Dan Boneh at Stanford University.
+- [`cycle`](https://github.com/dscape/cycle) 1.0.3, a dependency of `winston`
+  2.x through `fabric-ca-client`, is in the public domain.
+- [`callsite`](https://www.npmjs.com/package/callsite/v/1.0.0) 1.0.0, a
+  dependency of `fabric-common`, is licensed under MIT (stated in its README;
+  the package has no license file): Copyright TJ Holowaychuk.
+- [`google-protobuf`](https://github.com/protocolbuffers/protobuf-javascript)
+  3.21.4 is licensed under BSD-3-Clause AND Apache-2.0: Copyright (c) 2022,
+  Google Inc.
+
+Build and test dependencies (not needed to run the tools):
+
+- [`caniuse-lite`](https://github.com/browserslist/caniuse-lite) 1.0.30001784
+  (root) and 1.0.30001816 (`rebroadcast/`): Creative Commons Attribution 4.0
+  International (CC-BY-4.0).
+- [`argparse`](https://github.com/nodeca/argparse) 2.0.1: Python Software
+  Foundation License 2.0 (Python-2.0).
+- [`minimatch`](https://github.com/isaacs/minimatch) 10.2.6: Blue Oak Model
+  License 1.0.0.
+- [`type-fest`](https://github.com/sindresorhus/type-fest) 0.21.3 and 4.41.0:
+  MIT OR CC0-1.0.
+
+## Software the sample scripts download
+
+The scripts under `sample/` and `scripts/` download software into the user's own
+environment. It is not part of this repository:
+
+- Hyperledger Fabric release binaries and container images, `fabric-samples`,
+  Fabric CA, CouchDB, hlf-operator (Hyperledger Bevel), Istio, kubectl, Helm and
+  eksctl are licensed under Apache-2.0.
+- Node.js is licensed under MIT.
+- The Java migration-contract compile check (`scripts/compile-migration-stubs.sh`)
+  fetches `fabric-chaincode-shim`, `fabric-protos` (Apache-2.0) and Gson
+  (Apache-2.0) through Maven, in the `maven:3-eclipse-temurin-21` image.

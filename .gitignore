@@ -1,0 +1,28 @@
+node_modules/
+dist/
+coverage/
+extraction-output/
+*.js.map
+.env
+.env.*
+*.pem
+*.key
+*-msp/
+wallet/
+credentials.json
+replay-config.json
+.DS_Store
+*.tgz
+.claude/
+.kiro
+tmp/
+
+# Copied in from sample/chaincode/migration_contract/go/ at build time. Fabric
+# packages a Go chaincode directory whole, so the file has to be inside each
+# package, but a checked-in copy is a copy that goes stale.
+sample/chaincode/*/migration/
+sample/chaincode/*/vendor/
+sample/destination-config/.live-test-generated/
+sample/destination-config/connection-profile.json
+# Raw blocks (extract --save-blocks) carry ledger values
+*.block

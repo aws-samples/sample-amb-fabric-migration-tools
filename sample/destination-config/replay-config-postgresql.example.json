@@ -1,0 +1,7 @@
+{
+  "adapter": "postgresql",
+  "inputDir": "./extraction-output",
+  "postgresql": {
+    "connectionString": "postgresql://user:password@localhost:5432/fabric_state"
+  }
+}

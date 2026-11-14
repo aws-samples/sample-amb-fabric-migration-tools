@@ -1,0 +1,66 @@
+{
+  "rounds": 30,
+  "roundPauseMs": 90000,
+  "assets": 150,
+  "assetRounds": 8,
+  "trades": 200,
+  "tradeRounds": 6,
+  "channels": [
+    {
+      "name": "channel-a",
+      "members": [
+        "MemberA",
+        "MemberB",
+        "MemberC"
+      ],
+      "chaincodes": [
+        "consortium_ledger",
+        "sample_assets"
+      ],
+      "ledger": {
+        "keys": 1500,
+        "keysPerTx": 5,
+        "valueSize": 160,
+        "privateKeys": 200,
+        "implicitKeys": 100
+      }
+    },
+    {
+      "name": "channel-b",
+      "members": [
+        "MemberA",
+        "MemberB"
+      ],
+      "chaincodes": [
+        "consortium_ledger",
+        "trade_registry"
+      ],
+      "ledger": {
+        "keys": 800,
+        "keysPerTx": 5,
+        "valueSize": 120,
+        "privateKeys": 150,
+        "implicitKeys": 75
+      }
+    },
+    {
+      "name": "channel-c",
+      "members": [
+        "MemberA",
+        "MemberC"
+      ],
+      "chaincodes": [
+        "consortium_ledger",
+        "trade_registry"
+      ],
+      "ledger": {
+        "keys": 600,
+        "keysPerTx": 5,
+        "valueSize": 120,
+        "privateKeys": 150,
+        "implicitKeys": 75
+      }
+    }
+  ],
+  "trickleMs": 2100
+}

@@ -1,0 +1,12 @@
+{
+  "adapter": "dynamodb",
+  "inputDir": "./extraction-output",
+  "dynamodb": {
+    "region": "us-east-1",
+    "stateTable": "fabric-state",
+    "historyTable": "fabric-history",
+    "metadataTable": "fabric-block-metadata",
+    "identityTable": "fabric-identities",
+    "privateHashTable": "fabric-private-hashes"
+  }
+}

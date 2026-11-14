@@ -1,0 +1,76 @@
+diff --git a/orderer/common/msgprocessor/expiration.go b/orderer/common/msgprocessor/expiration.go
+index 89a1311..15d38d0 100644
+--- a/orderer/common/msgprocessor/expiration.go
++++ b/orderer/common/msgprocessor/expiration.go
+@@ -7,6 +7,7 @@ SPDX-License-Identifier: Apache-2.0
+ package msgprocessor
+ 
+ import (
++	"os"
+ 	"time"
+ 
+ 	"github.com/hyperledger/fabric-protos-go/common"
+@@ -41,6 +42,11 @@ func (exp *expirationRejectRule) Apply(message *common.Envelope) error {
+ 	if !ordererConf.Capabilities().ExpirationCheck() {
+ 		return nil
+ 	}
++	// MIGRATION PATCH: allow re-broadcast of historical envelopes whose creator cert has
++	// since expired. Never set outside a migration window.
++	if os.Getenv("ORDERER_MIGRATION_SKIP_EXPIRATION") == "true" {
++		return nil
++	}
+ 	signedData, err := protoutil.EnvelopeAsSignedData(message)
+ 	if err != nil {
+ 		return errors.Errorf("could not convert message to signedData: %s", err)
+diff --git a/orderer/consensus/etcdraft/chain.go b/orderer/consensus/etcdraft/chain.go
+index ed9bcf0..3bcd823 100644
+--- a/orderer/consensus/etcdraft/chain.go
++++ b/orderer/consensus/etcdraft/chain.go
+@@ -7,9 +7,11 @@ SPDX-License-Identifier: Apache-2.0
+ package etcdraft
+ 
+ import (
++	"bytes"
+ 	"context"
+ 	"encoding/pem"
+ 	"fmt"
++	"os"
+ 	"sync"
+ 	"sync/atomic"
+ 	"time"
+@@ -988,10 +990,35 @@ func (c *Chain) ordered(msg *orderer.SubmitRequest) (batches [][]*common.Envelop
+ 			return nil, true, errors.Errorf("bad normal message: %s", err)
+ 		}
+ 	}
++	// MIGRATION PATCH: during a migration re-broadcast, a signed MESSAGE envelope carrying
++	// migrationCutMarker ends the current block. The marker itself is never written.
++	if migrationCutMarkers && isMigrationCutMarker(msg.Payload) {
++		if batch := c.support.BlockCutter().Cut(); len(batch) != 0 {
++			return [][]*common.Envelope{batch}, false, nil
++		}
++		return nil, false, nil
++	}
+ 	batches, pending = c.support.BlockCutter().Ordered(msg.Payload)
+ 	return batches, pending, nil
+ }
+ 
++var (
++	migrationCutMarkers = os.Getenv("ORDERER_MIGRATION_CUT_MARKERS") == "true"
++	migrationCutMarker  = []byte("fabric-migration-cut")
++)
++
++func isMigrationCutMarker(env *common.Envelope) bool {
++	payload, err := protoutil.UnmarshalPayload(env.Payload)
++	if err != nil || payload.Header == nil {
++		return false
++	}
++	chdr, err := protoutil.UnmarshalChannelHeader(payload.Header.ChannelHeader)
++	if err != nil {
++		return false
++	}
++	return chdr.Type == int32(common.HeaderType_MESSAGE) && bytes.Equal(payload.Data, migrationCutMarker)
++}
++
+ func (c *Chain) propose(ch chan<- *common.Block, bc *blockCreator, batches ...[]*common.Envelope) {
+ 	for _, batch := range batches {
+ 		b := bc.createNextBlock(batch)

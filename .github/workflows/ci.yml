@@ -1,0 +1,111 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # Lint is version-independent — it reads the same source on every Node, so it
+  # runs once rather than three times across the build matrix.
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run lint
+
+  # Version-independent for the same reason lint is. This is a gate, not a
+  # report: the thresholds in jest.config.js make `jest --coverage` exit
+  # non-zero when a group falls under one.
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run test:coverage
+
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+
+  # The Go and Java migration contract stubs have no build of their own — they
+  # are copied into a package the customer already has — so nothing compiled
+  # them until this job. `npm test` covers the Node copy, which needs no
+  # compiler: it loads and runs against the real `fabric-contract-api`.
+  compile-migration-stubs:
+    runs-on: ubuntu-latest
+    strategy:
+      # Both languages report, rather than the first failure hiding the second.
+      fail-fast: false
+      matrix:
+        language: [go, java]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        if: matrix.language == 'go'
+        with:
+          go-version: stable
+
+      - uses: actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880 # v6.3.0
+        if: matrix.language == 'java'
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - run: scripts/compile-migration-stubs.sh ${{ matrix.language }}
+
+  # rebroadcast/ is its own package (own lockfile), outside the root build. Its
+  # run and ceremony tests need configtxlator: pinned to Fabric 2.5.14 and
+  # checked against the release tarball's SHA-256 before use.
+  rebroadcast:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: rebroadcast
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: rebroadcast/package-lock.json
+
+      - name: configtxlator (Fabric 2.5.14)
+        run: |
+          curl -sSfL -o /tmp/hlf.tgz https://github.com/hyperledger/fabric/releases/download/v2.5.14/hyperledger-fabric-linux-amd64-2.5.14.tar.gz
+          echo "a4136c6149974a8f579e5f284ee9dd2a9acdcfbf396592f866e1a3a56d199fab  /tmp/hlf.tgz" | sha256sum -c -
+          mkdir -p "$RUNNER_TEMP/fabric" && tar xzf /tmp/hlf.tgz -C "$RUNNER_TEMP/fabric" bin/configtxlator
+          echo "$RUNNER_TEMP/fabric/bin" >> "$GITHUB_PATH"
+
+      - run: npm ci
+      - run: npm run build
+      - run: npm test

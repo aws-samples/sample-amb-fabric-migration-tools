@@ -1,0 +1,20 @@
+[
+  {
+    "name": "orgPrivateData",
+    "policy": "OR('Org1MSP.member')",
+    "requiredPeerCount": 0,
+    "maxPeerCount": 1,
+    "blockToLive": 0,
+    "memberOnlyRead": true,
+    "memberOnlyWrite": true
+  },
+  {
+    "name": "tempPrivateData",
+    "policy": "OR('Org1MSP.member')",
+    "requiredPeerCount": 0,
+    "maxPeerCount": 1,
+    "blockToLive": 100,
+    "memberOnlyRead": true,
+    "memberOnlyWrite": true
+  }
+]
