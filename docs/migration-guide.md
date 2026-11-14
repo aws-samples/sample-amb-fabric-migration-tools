@@ -1001,18 +1001,6 @@ For a 2-member network, each org runs the full pipeline independently. The key c
 
 ---
 
-## Identity-mapped replay (planned)
-
-The current chaincode adapter submits as one admin identity per organization — `collectionIdentities` routes a collection to the org that owns it, but within an org every record is written by the same admin. For migrations where authorship attribution matters, identity-mapped replay will submit each key using the same logical identity that wrote it on the source.
-
-This requires:
-1. Generating an identity map from `identities.ndjson` (a `generate-identity-map` command, which does not exist yet)
-2. Enrolling corresponding identities on the destination CA
-3. Filling in destination cert/key paths in the map file
-4. Passing the map to the replay command
-
-None of this is built: there is no `generate-identity-map` command and no `--identity-map` flag. Identity-mapped replay is not a feature today.
-
 ## What this tool does NOT do
 
 - **Migrate running chaincode.** The tool extracts data, not execution logic. You must port your chaincode to the destination platform separately.

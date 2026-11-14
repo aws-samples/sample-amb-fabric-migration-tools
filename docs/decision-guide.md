@@ -136,7 +136,7 @@ against the migrated data?
 | **Private data values** | Full (authorized collections) | Full | Full |
 | **Private data hashes** | No (not a native concept) | Yes (`fabric_private_hashes` table) | No |
 | **Block metadata** | No (destination creates own blocks) | Yes (`fabric_block_metadata` table) | Yes (optional table) |
-| **Identities** | No (submitted under admin; identity-mapped replay planned) | Yes (`fabric_identities` table) | Yes (optional table) |
+| **Identities** | No (submitted under admin; identity-mapped replay is not built) | Yes (`fabric_identities` table) | Yes (optional table) |
 | **History (Tier 3)** | Yes, via `replayHistory: true` — destination's `GetHistoryForKey` works, but every entry is attributed to the migration, not the source transaction, and the default `replayHistory: false` leaves one entry per key ([provenance](replay-config-reference.md#history-and-provenance-fidelity)) | Yes (`fabric_history` table) | Yes (optional table) |
 | **Query model** | Chaincode + CouchDB/LevelDB | SQL | Key-value + GSIs |
 | **Idempotent replay** | State only (a replayed write is last-write-wins, batched or not). **Not** with `replayHistory: true` — every re-run appends another `GetHistoryForKey` entry, so a failed history replay needs a destination reset ([what a second run does](replay-config-reference.md#re-running-a-replay)) | Yes (`ON CONFLICT DO UPDATE`) | Yes (a `PutRequest` replaces the whole item) |

@@ -59,11 +59,13 @@ What extraction checks about the blocks a peer serves, and what it takes on the 
 - Fabric replay reproduces keys and values, not the transactions that wrote them: destination history carries the
   migration's transaction IDs, timestamps and creator. See
   [History and provenance fidelity](replay-config-reference.md#history-and-provenance-fidelity). Re-broadcast keeps them.
-- Identity-mapped replay (submitting each record as a mapped destination identity) is designed, not built.
+- Identity-mapped replay (submitting each record as a mapped destination identity) is not built.
 - Private history, block metadata, identities and private hashes are written to PostgreSQL and DynamoDB but not
-  checked by `verify`. SQL checks for them are in the README.
+  checked by `verify` ([#2](https://github.com/aws-samples/sample-amb-fabric-migration-tools/issues/2)). SQL checks
+  for them are in the README.
 - DynamoDB state replay writes one item per call; it has not been measured against a real table.
-- Replayed values are not checked against the destination's transaction payload limit before they are sent.
+- Replayed values are not checked against the destination's transaction payload limit before they are sent
+  ([#3](https://github.com/aws-samples/sample-amb-fabric-migration-tools/issues/3)).
 - The migration contract stubs for Go, Java and Node compile and are unit tested; only the Go stub has run on a peer.
 - A history replay without `historyImport` cannot be resumed after an interruption: it refuses rather than duplicate
   history, and the destination must be reset. Use `historyImport` for a replay that may be interrupted.
