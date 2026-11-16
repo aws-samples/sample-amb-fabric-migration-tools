@@ -644,6 +644,20 @@ Measured on a test network.
 that can be resumed after any interruption. `verify`'s skips here are the documented ones: composite keys (1,300) and
 private history, which Fabric cannot read back (17 collections).
 
+### DynamoDB destination
+
+Source: one member's Tier 3 extraction from an AMB Hyperledger Fabric 2.2 network, four channels, 15,382,674 records
+(13 GB). Destination: five on-demand DynamoDB tables that `replay` created, written from a `c6i.4xlarge` in the same
+region. Default `batchSize`. Measured on a test network.
+
+| Run | Time | Result |
+|---|---|---|
+| Replay | 2,754 s (about 5,600 records/s), one run | 0 failed. DynamoDB returned unprocessed items 35,810 times and answered 34 requests with `InternalServerError`; every one was retried and written. Peak memory 258 MB |
+| `verify`, `concurrency` 16 | 2,433 s (about 1,460 entries/s) | 3,541,420 match, 0 mismatch, missing or extra. Peak memory 2.4 GB |
+
+On one channel of the same extraction (158,980 records), a second replay over the finished tables converged, and a
+replay resumed after `kill -9` from its checkpoint; `verify` matched every entry after both.
+
 ### Replaying only what an extension added (`replay --since`)
 
 Channel `channel-b` (two members), extracted at height 1,700, extended to 1,934, merged. Each `--since extension` result

@@ -12,7 +12,8 @@ that come from Amazon Managed Blockchain rather than from this toolkit are in [A
   block-level re-broadcast. No AMB 1.2 network, and no real 1.2 or 1.4 block bytes in the test fixtures.
 - **Destinations:** self-managed Fabric 2.5 (Docker on EC2, and Kubernetes): history replay, `verify`, resume and the
   destination guards. PostgreSQL: one live end-to-end run (replay, `verify`, re-run); CI uses a mocked client.
-  DynamoDB: unit tests with a mocked client only, never against a real table.
+  DynamoDB: one live run into on-demand tables (replay, `verify`, re-run, resume after `kill -9`), measured in
+  [Tuning](tuning.md#dynamodb-destination); CI uses a mocked client.
 - **Scale:** measured throughput and a duration model are in [Tuning](tuning.md). Ledgers of millions of blocks have
   not been extracted end to end.
 
@@ -63,7 +64,7 @@ What extraction checks about the blocks a peer serves, and what it takes on the 
 - Private history, block metadata, identities and private hashes are written to PostgreSQL and DynamoDB but not
   checked by `verify` ([#2](https://github.com/aws-samples/sample-amb-fabric-migration-tools/issues/2)). SQL checks
   for them are in the README.
-- DynamoDB state replay writes one item per call; it has not been measured against a real table.
+- DynamoDB replay has been run only into on-demand tables, not provisioned ones.
 - Replayed values are not checked against the destination's transaction payload limit before they are sent
   ([#3](https://github.com/aws-samples/sample-amb-fabric-migration-tools/issues/3)).
 - The migration contract stubs for Go, Java and Node compile and are unit tested; only the Go stub has run on a peer.
