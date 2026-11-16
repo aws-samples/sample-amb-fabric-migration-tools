@@ -567,6 +567,8 @@ describe('PostgresqlAdapter', () => {
       await expect(adapter.replayBatch([makePublicState('k1')])).rejects.toMatchObject({
         code: 'REPLAY_ERROR',
         cause,
+        // The CLI prints only the message, so the driver's reason must be in it.
+        message: 'Batch replay failed: value too long for type character varying',
       });
     });
 

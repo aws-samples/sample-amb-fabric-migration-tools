@@ -1,5 +1,9 @@
 import { keyPartitionKey } from '../src/replay/adapters/dynamodb-keys';
-import { DynamoDBAdapter, DynamoDBAdapterConfig } from '../src/replay/adapters/dynamodb-adapter';
+import {
+  DYNAMODB_MAX_ATTEMPTS,
+  DynamoDBAdapter,
+  DynamoDBAdapterConfig,
+} from '../src/replay/adapters/dynamodb-adapter';
 import {
   ExtractionRecord,
   PublicStateRecord,
@@ -957,14 +961,31 @@ describe('DynamoDBAdapter', () => {
   });
 
   describe('error handling', () => {
-    it('wraps DynamoDB errors in ReplayError', async () => {
-      mockSendFn.mockRejectedValueOnce(new Error('Throughput exceeded'));
+    it('wraps DynamoDB errors in ReplayError, naming the SDK error in the message', async () => {
+      const cause = Object.assign(new Error('Internal server error'), { name: 'InternalServerError' });
+      mockSendFn.mockRejectedValueOnce(cause);
 
       const adapter = new DynamoDBAdapter(BASE_CONFIG);
       await expect(adapter.replayBatch([makePublicState('k1')])).rejects.toMatchObject({
         name: 'ReplayError',
-        message: expect.stringContaining('DynamoDB batch replay failed'),
+        cause,
+        // The CLI prints only the message, so the SDK's reason must be in it.
+        message: 'DynamoDB batch replay failed: InternalServerError: Internal server error',
       });
+    });
+  });
+
+  describe('SDK retries', () => {
+    it('raises the SDK attempt limit above its default of 3', () => {
+      const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
+      DynamoDBClient.mockClear();
+
+      new DynamoDBAdapter(BASE_CONFIG);
+
+      expect(DynamoDBClient).toHaveBeenCalledWith(
+        expect.objectContaining({ maxAttempts: DYNAMODB_MAX_ATTEMPTS }),
+      );
+      expect(DYNAMODB_MAX_ATTEMPTS).toBeGreaterThan(3);
     });
   });
 

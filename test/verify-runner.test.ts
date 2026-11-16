@@ -74,6 +74,7 @@ jest.mock('@aws-sdk/lib-dynamodb', () => ({
 
 import { FabricGateway } from '../src/connection/fabric-gateway';
 import { GetCommand, QueryCommand } from '@aws-sdk/lib-dynamodb';
+import { DYNAMODB_MAX_ATTEMPTS } from '../src/replay/adapters/dynamodb-adapter';
 import {
   VerifyEntry,
   VerifySummary,
@@ -2030,6 +2031,19 @@ describe('verify-runner — dynamodb', () => {
     const result = await runVerification(tmpDir, makeDynamoConfig());
 
     expect(result.summary.match).toBe(1);
+  });
+
+  test('raises the SDK attempt limit above its default of 3', async () => {
+    const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
+    DynamoDBClient.mockClear();
+    writeManifest(tmpDir, ['ch1']);
+    mockDynamoSend.mockResolvedValue({});
+
+    await runVerification(tmpDir, makeDynamoConfig());
+
+    expect(DynamoDBClient).toHaveBeenCalledWith(
+      expect.objectContaining({ maxAttempts: DYNAMODB_MAX_ATTEMPTS }),
+    );
   });
 
   test('differing value returns mismatch', async () => {

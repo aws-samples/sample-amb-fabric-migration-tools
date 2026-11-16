@@ -197,7 +197,8 @@ export class PostgresqlAdapter {
       await client.query('COMMIT');
     } catch (err) {
       await client.query('ROLLBACK');
-      throw new ReplayError('Batch replay failed', err as Error);
+      // The CLI prints only the message, so the driver's reason has to be in it.
+      throw new ReplayError(`Batch replay failed: ${(err as Error).message}`, err as Error);
     } finally {
       client.release();
     }

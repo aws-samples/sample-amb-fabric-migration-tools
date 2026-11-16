@@ -26,6 +26,7 @@ import {
   keyPartitionKey,
   parseKeyPartitionKey,
 } from '../replay/adapters/dynamodb-keys';
+import { DYNAMODB_MAX_ATTEMPTS } from '../replay/adapters/dynamodb-adapter';
 import { assertPostgresqlTls, toJsonbLiteral } from '../replay/adapters/postgresql-adapter';
 import { resolveChannelRouting } from '../replay/channel-routing';
 import { assertDestinationFingerprint } from '../replay/destination-fingerprint';
@@ -1554,6 +1555,7 @@ async function verifyDynamodb(ctx: VerifyContext): Promise<void> {
 
   const client = new DynamoDBClient({
     region: config.dynamodb.region,
+    maxAttempts: DYNAMODB_MAX_ATTEMPTS,
     ...(config.dynamodb.endpoint
       ? { endpoint: config.dynamodb.endpoint }
       : {}),

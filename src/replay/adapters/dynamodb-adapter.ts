@@ -43,6 +43,17 @@ const DYNAMO_BATCH_LIMIT = 25;
 const UNPROCESSED_MAX_ATTEMPTS = 6;
 
 /**
+ * Attempts the AWS SDK makes per request before a retryable error is thrown.
+ *
+ * The SDK's default of 3 is too few for a bulk load. A 15M-record replay into
+ * on-demand tables saw DynamoDB answer three requests with `InternalServerError`
+ * (HTTP 500) on all three attempts, each one stopping the run. That is resumable
+ * from the checkpoint, but it needs an operator to re-run it. The SDK's standard
+ * retry mode backs off exponentially, capped at 20 s, between attempts.
+ */
+export const DYNAMODB_MAX_ATTEMPTS = 10;
+
+/**
  * BatchWriteItem requests in flight at once within one `batchWrite`.
  *
  * Eight requests is 200 items on the wire, against the AWS SDK's default Node
@@ -88,6 +99,7 @@ export class DynamoDBAdapter {
     this.config = config;
     this.client = new DynamoDBClient({
       region: config.region,
+      maxAttempts: DYNAMODB_MAX_ATTEMPTS,
       ...(config.endpoint ? { endpoint: config.endpoint } : {}),
     });
     this.docClient = DynamoDBDocumentClient.from(this.client);
@@ -127,7 +139,12 @@ export class DynamoDBAdapter {
       }
     } catch (err) {
       if (err instanceof ReplayError) throw err;
-      throw new ReplayError('DynamoDB batch replay failed', err as Error);
+      // The CLI prints only the message, so the SDK's reason has to be in it.
+      const cause = err as Error;
+      throw new ReplayError(
+        `DynamoDB batch replay failed: ${cause.name}: ${cause.message}`,
+        cause,
+      );
     }
   }
 
