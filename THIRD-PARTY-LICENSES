@@ -51,13 +51,14 @@ Runtime dependencies:
 
 Build and test dependencies (not needed to run the tools):
 
-- [`caniuse-lite`](https://github.com/browserslist/caniuse-lite) 1.0.30001784
+- [`caniuse-lite`](https://github.com/browserslist/caniuse-lite) 1.0.30001826
   (root) and 1.0.30001816 (`rebroadcast/`): Creative Commons Attribution 4.0
   International (CC-BY-4.0).
 - [`argparse`](https://github.com/nodeca/argparse) 2.0.1: Python Software
   Foundation License 2.0 (Python-2.0).
-- [`minimatch`](https://github.com/isaacs/minimatch) 10.2.6: Blue Oak Model
-  License 1.0.0.
+- [`minimatch`](https://github.com/isaacs/minimatch) 11.0.9 and
+  [`@isaacs/nonrecursive-glob-match`](https://www.npmjs.com/package/@isaacs/nonrecursive-glob-match) 1.1.0:
+  Blue Oak Model License 1.0.0.
 - [`type-fest`](https://github.com/sindresorhus/type-fest) 0.21.3 and 4.41.0:
   MIT OR CC0-1.0.
 
