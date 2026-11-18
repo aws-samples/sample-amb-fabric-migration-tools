@@ -17,11 +17,15 @@ run build npm run build
 run lint npm run lint
 run unit-tests-and-coverage npm run test:coverage
 run audit-high-and-critical npm audit --omit=dev --audit-level=high
+# Development dependencies (jest, eslint) never ship, but they run on the reviewer's machine. Held to critical, not
+# high: a high advisory with no patched release yet would otherwise fail every run until upstream publishes one.
+run audit-dev-critical npm audit --audit-level=critical
 run rebroadcast-install bash -c 'cd rebroadcast && npm ci'
 run rebroadcast-build bash -c 'cd rebroadcast && npm run build'
 if command -v configtxlator >/dev/null; then run rebroadcast-tests bash -c 'cd rebroadcast && npm test'
 else run rebroadcast-tests-partial bash -c 'cd rebroadcast && npm test'; skip rebroadcast-configtxlator-tests 'configtxlator not on PATH (15 tests skip)'; fi
 run rebroadcast-audit bash -c 'cd rebroadcast && npm audit --omit=dev --audit-level=high'
+run rebroadcast-audit-dev-critical bash -c 'cd rebroadcast && npm audit --audit-level=critical'
 if command -v go >/dev/null; then run stub-go scripts/compile-migration-stubs.sh go; else skip stub-go 'go not installed'; fi
 if docker info >/dev/null 2>&1; then run stub-java docker run --rm -v "$PWD:/w" -w /w maven:3-eclipse-temurin-21 scripts/compile-migration-stubs.sh java
 else skip stub-java 'docker not running'; fi

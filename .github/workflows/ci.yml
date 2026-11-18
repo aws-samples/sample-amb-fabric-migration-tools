@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [main]
 
+# Every job only checks out the code and runs local tools, so the token needs to
+# read the repository and nothing else.
+permissions:
+  contents: read
+
 jobs:
   # Lint is version-independent — it reads the same source on every Node, so it
   # runs once rather than three times across the build matrix.

@@ -21,8 +21,8 @@ scripts/review-check.sh
 It runs, and reports each as `ok`, `FAILED` (with its log) or `skipped` (a tool that is not installed):
 - `npm ci`, `npm run build`, `npm run lint`, `npm run test:coverage` (fails if a directory's coverage falls under its
   threshold in `jest.config.js`);
-- `npm audit --omit=dev --audit-level=high` for both packages. Three low findings remain by design: see
-  [Dependency notes](#dependency-notes);
+- `npm audit --omit=dev --audit-level=high` for both packages, and `npm audit --audit-level=critical` including
+  development dependencies. Three low runtime findings remain by design: see [Dependency notes](#dependency-notes);
 - `rebroadcast/`: install, build, tests. With `configtxlator` (Fabric 2.5) on `PATH`, all 79 tests run; without it, 15
   skip;
 - the Go and Java migration contract stubs (`scripts/compile-migration-stubs.sh`; Java runs in a Maven + JDK 21 image);
@@ -86,3 +86,7 @@ version), reported against `elliptic` and the two packages that require it, `fab
 They are the only Node client for AMB's Fabric 2.2 peers, which have no Gateway service. The advisory concerns ECDSA
 signing; the toolkit signs with Node's own crypto instead (`src/connection/node-signer.ts`). `jsrsasign` and the gRPC
 library nested under `fabric-protos` are raised to patched versions with `overrides` in `package.json`.
+
+Development dependencies (jest, ts-jest, eslint) are audited at `critical` rather than `high`. They never ship with the
+tools, and a high advisory with no patched release yet, such as the `picomatch` ReDoS reported under jest and
+typescript-eslint, would otherwise fail every run until upstream publishes a fix.
