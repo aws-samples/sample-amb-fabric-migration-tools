@@ -140,9 +140,11 @@ Write the start time of every step on the timing sheet.
       destination must now stop at its pre-flight.
     - Revoke the identities replay and verify used (`chaincode.certPath`, `orgIdentities`, `collectionIdentities`):
       revoke them at their CA, and add the CA's updated CRL to the org's MSP definition in each channel's config, so
-      peers and orderers refuse them. Delete the migration host's copies of their keys. The CRL update needs an org
-      admin's signature, so do not revoke an org's only admin: give replay and verify dedicated identities, enrolled
-      for the migration, and revoke those.
+      peers and orderers refuse them. The CRL must carry the Authority Key Identifier extension: Fabric refuses a CRL
+      without one (`could not obtain Authority Key Identifier for crl`). `fabric-ca-client revoke --gencrl` (Fabric CA
+      1.5) writes it; a CRL made with `openssl ca` needs `authorityKeyIdentifier = keyid:always` in its CRL extensions.
+      Delete the migration host's copies of their keys. The CRL update needs an org admin's signature, so do not revoke
+      an org's only admin: give replay and verify dedicated identities, enrolled for the migration, and revoke those.
 
 12. **Switch** application endpoints, credentials and integrations to the destination. Keep the source read-only for the agreed
     retention period.

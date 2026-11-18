@@ -54,11 +54,14 @@ anything.
     (`probe` measures the right value).
   - Destination peers: `CORE_PEER_GOSSIP_PVTDATA_PULLRETRYTHRESHOLD=0s` during the run. Peers otherwise wait for
     private data no peer has, and commit far behind the orderer.
+  - Signers whose certificate has since expired: a stock orderer refuses their transactions (`plan` reports them).
+    For the migration window, set `General.Authentication.NoExpirationChecks: true` on every orderer
+    (`ORDERER_GENERAL_AUTHENTICATION_NOEXPIRATIONCHECKS=true`), a stock Fabric setting. It also lets an identity whose
+    certificate has expired read blocks, which a stock orderer refuses too. The patched orderer's
+    `ORDERER_MIGRATION_SKIP_EXPIRATION=true` lifts the broadcast check only. Turn either off after the run.
   - Optional patched orderer ([`rebroadcast/orderer-patch/`](../rebroadcast/orderer-patch/), against Fabric v2.5.14):
     `cut-markers` mode sends ahead instead of waiting out `BatchTimeout` per block (with
-    `ORDERER_MIGRATION_CUT_MARKERS=true` on every orderer), and
-    `ORDERER_MIGRATION_SKIP_EXPIRATION=true` accepts transactions whose signer certificate has since expired, which a
-    stock orderer refuses. Use it during the migration window only.
+    `ORDERER_MIGRATION_CUT_MARKERS=true` on every orderer). Use it during the migration window only.
 - **Admin keys** of the orgs that must sign each config update, held locally or signed by each member in a ceremony
   ([signing kit](../rebroadcast/docs/signing-kit.md)).
 - **Chaincode source** for every chaincode, with the [migration contract](../sample/chaincode/migration_contract/README.md)
@@ -128,6 +131,31 @@ from its own run. No member's plaintext leaves that member's host, and no merge 
 - **One operator holding every member's output** (a managed-provider destination, where the platform org holds all
   private data): give a directory holding each member's output, or a merged one. A merged output stands for every
   member.
+
+### Close the migration path
+
+Before application traffic reaches the destination:
+
+1. **Put the window's settings back.** Restore each destination peer's `CORE_PEER_GOSSIP_PVTDATA_PULLRETRYTHRESHOLD`,
+   and return the orderers to the stock image or turn `NoExpirationChecks` off.
+2. **Remove the migration contract and revoke the migration identities**, as in the replay path:
+   [cutover runbook, step 11](cutover-rehearsal-runbook.md#the-window).
+3. **Retire the AMB CA roots.** `genesis` keeps each org's AMB CA root in its MSP definition, so the original
+   signatures validate. Until a config update removes it, any unexpired certificate that CA issued can act as that
+   org on the destination (default AMB certificates last ten years). Once every application, admin and peer of the org
+   uses an identity from the destination's CA, submit a config update per channel that removes the AMB root (and any
+   AMB intermediate or TLS root) from the org's MSP, together with the AMB-issued certificates in its `admins` list.
+   Removing the root alone is refused (`x509: certificate signed by unknown authority`), because Fabric refuses an MSP
+   whose admin certificate no longer chains to one of its roots. The update is authorised by the org's own `Admins`
+   policy, so that org's destination admin signs it. History is not affected: committed blocks are not validated
+   again, and a peer that joins later validates each block against the config at that block's height.
+
+   Measured on an AMB Fabric 2.2 channel (two members, 1,934 blocks) re-broadcast to a stock Fabric 2.5 destination,
+   and on a local Fabric source and destination after the tip phase. Before the update, the member's AMB-issued admin
+   certificate could still read from the destination's peers and broadcast to its orderer. After it, both refused it,
+   while the destination's identities and the other member's identities kept working. A peer that joined after the
+   update synced from block 0, and `compare` via it matched every archived block, validation codes and commit hash
+   included. Rehearse it on the staging destination too.
 
 Every command, its exit codes and the descriptor format are in the [rebroadcast README](../rebroadcast/README.md).
 

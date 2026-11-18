@@ -69,7 +69,9 @@ The patched orderer is built from the patch in [`orderer-patch/`](orderer-patch/
 v2.5.14). It adds the cut markers this mode reads, turned on by `ORDERER_MIGRATION_CUT_MARKERS=true` on every
 orderer (without it a marker is an ordinary message and `cut-markers` mode cannot work), and an
 `ORDERER_MIGRATION_SKIP_EXPIRATION` switch;
-both are for the migration window only and should not be used for a general-purpose orderer.
+both are for the migration window only and should not be used for a general-purpose orderer. For expired signers
+alone, a stock orderer with `General.Authentication.NoExpirationChecks: true` also works
+([prerequisites](../docs/rebroadcast.md#prerequisites)).
 
 The run stops on any violation, and never retries a send. Exit codes:
 

@@ -79,7 +79,7 @@ export async function plan(archive: Archive, dst: Destination, opts: PlanOptions
       }
     }
   }
-  if (expired) add('blocking', 'E6-expired-signers', `${expired} transactions were signed by certificates expired by ${at.toISOString().slice(0, 10)}; a stock orderer refuses them. Needs the expiry-bypass orderer option (design §4.1) or state replay`);
+  if (expired) add('blocking', 'E6-expired-signers', `${expired} transactions were signed by certificates expired by ${at.toISOString().slice(0, 10)}; a stock orderer refuses them. For the migration window, set General.Authentication.NoExpirationChecks: true on every orderer (or use the patched orderer's ORDERER_MIGRATION_SKIP_EXPIRATION), or use state replay`);
 
   // ── destination and the config chain ──
   const cs = await chainStart(archive, dst, !!opts.offline);
