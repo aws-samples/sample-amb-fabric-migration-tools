@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 const BLOCK_PAD_WIDTH = 12;
 const TX_INDEX_PAD_WIDTH = 4;
 

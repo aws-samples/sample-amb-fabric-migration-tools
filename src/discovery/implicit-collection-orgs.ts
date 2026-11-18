@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { DiscoveryGateway } from './chaincode-discoverer';
 import { FabricVersionDetector } from './version-detector';
 import { supportsImplicitCollections } from '../utils/fabric-version';

@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * Block decoding with @hyperledger/fabric-protos. Only the fields the tool needs are read; the raw bytes
  * (the whole block, each envelope) are kept untouched, because they are what gets re-sent and compared.

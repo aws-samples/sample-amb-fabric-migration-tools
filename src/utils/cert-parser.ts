@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import * as crypto from 'crypto';
 import { FabricIdentity } from '../types';
 import { createLogger } from './logger';

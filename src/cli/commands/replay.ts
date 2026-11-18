@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { Command } from 'commander';
 import { REPLAY_ADAPTERS, ReplayConfig } from '../../types';
 import { checkpointFileName } from '../../replay/replay-checkpoint-manager';

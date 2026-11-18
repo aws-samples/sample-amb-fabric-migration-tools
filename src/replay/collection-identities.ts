@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { Network } from '@hyperledger/fabric-gateway';
 import { FabricGateway } from '../connection/fabric-gateway';
 import { CollectionIdentity, GrpcTimeouts, ReplayConfig } from '../types';

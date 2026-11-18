@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { ChaincodeInfo, CollectionConfig } from '../types';
 import { NetworkAdapter, ContractAdapter } from '../connection/network-adapter';
 import { DiscoveryError } from '../utils/errors';

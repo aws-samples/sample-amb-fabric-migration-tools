@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * Talking to an ordering service (and a peer's Deliver service) with @grpc/grpc-js alone. The client definitions use
  * identity (de)serialisers, so a block is exactly the bytes the server sent and an envelope exactly the bytes in the

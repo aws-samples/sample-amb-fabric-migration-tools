@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { Command, Option, OptionValues } from 'commander';
 import { ChannelInfo, MigrationTier, ExtractionStrategy, StateBackendOption, ExtractOptions, GrpcTimeouts, Manifest } from '../../types';
 import { createLogger } from '../../utils/logger';

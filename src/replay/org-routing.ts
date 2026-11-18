@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { CollectionIdentity, ReplayConfig } from '../types';
 import { ReplayError } from '../utils/errors';
 import { IMPLICIT_COLLECTION_PREFIX } from './collection-routing';

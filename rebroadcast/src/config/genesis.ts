@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * `genesis` (self-managed only): the destination channel's block 0. The source's genesis config, transformed: its
  * orgs, policies and capabilities, the destination's Orderer group (from a configtxgen template block), and each source

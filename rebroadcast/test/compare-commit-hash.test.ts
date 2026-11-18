@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * `compare` via a peer: the commit hash. A peer adds one from block 1, or after a block that has one, so a source
  * ledger that started on a Fabric version without commit hashes has none on any block. That source block cannot be

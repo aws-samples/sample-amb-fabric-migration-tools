@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * `verify` (design §9, level L3): the whole destination, not a sample, against the facts rebuilt from the archive,
  * through the migration contract's read functions on one destination peer.

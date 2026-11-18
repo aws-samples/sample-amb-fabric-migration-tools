@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { BlockParser } from '../src/extraction/block-parser';
 import { ADMIN_CERT_FINGERPRINT, ADMIN_CERT_PEM } from './helpers/test-certs';
 

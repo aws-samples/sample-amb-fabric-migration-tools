@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { reportCliFailure } from '../src/cli/index';
 import { DiscoveryError, ExtractionError } from '../src/utils/errors';
 

@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * Diagnostic: fetch blocks 0-2 and verify hash chain.
  */

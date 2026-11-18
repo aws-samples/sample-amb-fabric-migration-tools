@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * `tip config` (design §9), provider profile: after the whole archive is replayed, the channel's Application group is
  * the SOURCE's, so the platform's own org is gone and the platform can no longer manage the channel or run lifecycle.

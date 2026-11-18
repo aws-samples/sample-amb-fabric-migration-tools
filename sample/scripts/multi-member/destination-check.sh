@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 #
 # Prove a destination built by destination.sh works for every org before
 # replaying into it. On every plan channel, each member org in turn:

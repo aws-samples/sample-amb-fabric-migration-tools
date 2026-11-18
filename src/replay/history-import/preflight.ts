@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * Pre-flight probe confirming a destination migration contract implements the
  * resilient history-import protocol before the first write.

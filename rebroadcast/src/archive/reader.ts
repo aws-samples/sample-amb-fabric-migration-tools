@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * Reading a block archive. Two layouts:
  *   - the contract layout written by `extract --save-blocks` (design §6.1):

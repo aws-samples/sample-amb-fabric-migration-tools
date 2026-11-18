@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * One config step: the update that mirrors source config block `n` onto the destination's current config, who must
  * sign it, and the config it leads to. Shared by `plan` (offline, applied to the simulated config) and `run`

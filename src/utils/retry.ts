@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { logger } from './logger';
 
 /** How long a call keeps trying, and how it spaces the attempts. */

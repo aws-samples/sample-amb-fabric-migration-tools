@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * fabric-rebroadcast: block-level migration of a Fabric channel to a Fabric 2.5 destination.
  * Every command takes --json (one JSON object on stdout, progress on stderr). No output carries a ledger value,

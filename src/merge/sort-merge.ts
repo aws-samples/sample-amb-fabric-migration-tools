@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { OrderingViolation, RecordOrderingChecker } from '../utils/record-ordering';
 
 /** Any record positioned in the ledger by block and transaction index. */

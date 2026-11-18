@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { NdjsonReader } from '../replay/ndjson-reader';
 
 /** How deep one history file's keys go. */

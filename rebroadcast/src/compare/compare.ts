@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * `compare`: the destination's blocks against the archive, block by block.
  *   via the orderer: transaction count, data_hash and transaction IDs by position (what the orderer can show)

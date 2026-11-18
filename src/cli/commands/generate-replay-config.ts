@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { Command } from 'commander';
 import { createInterface } from 'readline/promises';
 import { stdin as input, stdout as output } from 'process';

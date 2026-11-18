@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * The destination descriptor (design §6.2): where the destination's orderer and peers are, which identity signs as
  * each source org, and what the first config update may change. Secrets are referenced by path only; paths are

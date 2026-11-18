@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 #
 # Populate the sample_assets chaincode with test data that exercises every
 # extraction path in this toolkit:

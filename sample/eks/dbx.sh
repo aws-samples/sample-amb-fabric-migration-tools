@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 # dbx.sh <script file | -> : run a bash script on the fabric-eks devbox via SSM (as ec2-user's environment), print output.
 set -euo pipefail
 export AWS_REGION=${AWS_REGION:-us-east-1}   # credentials from AWS_PROFILE or the default chain

@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 # Install the devbox tools for docs/eks-fabric-runbook.md into ~/bin, ~/fabric and ~/node.
 # Run on the devbox: AWS_REGION=<cluster region> DEVBOX_ID=... ./dbx.sh devbox-tools.sh.
 set -euo pipefail

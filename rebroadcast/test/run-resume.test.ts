@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * Resume state binds the last aligned block to both the source archive and the
  * destination. Config blocks differ by construction, so they need two hashes.

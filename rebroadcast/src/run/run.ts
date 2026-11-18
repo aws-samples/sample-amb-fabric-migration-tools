@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * `run`: the per-block loop (design §5.2–5.6). One persistent Deliver feed tells us when block n is cut and hands us
  * the block itself; each source block is broadcast on its own stream; every destination block is compared with the

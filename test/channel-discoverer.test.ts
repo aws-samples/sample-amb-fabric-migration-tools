@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { ChannelDiscoverer } from '../src/discovery/channel-discoverer';
 import { DiscoveryGateway } from '../src/discovery/chaincode-discoverer';
 import { NetworkAdapter, ContractAdapter } from '../src/connection/network-adapter';

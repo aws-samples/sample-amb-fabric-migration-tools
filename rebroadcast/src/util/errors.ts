@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * Exit codes (design §6.5). Every refusal the tool makes carries one, so a script or an operator can tell
  * "nothing was sent" from "the destination may now differ".

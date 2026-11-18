@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /** What each command is allowed to touch (design §6.4); an operator's guard policy can be checked against this list. */
 export const COMMANDS = [
   { name: 'check-archive', class: 'read-only', reads: ['archive'], writes: [] },

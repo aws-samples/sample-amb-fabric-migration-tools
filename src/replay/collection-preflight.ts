@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { collectionPolicyIncludes } from '../extraction/private-data/collection-policy';
 import { FileLayoutManager } from '../output/file-layout-manager';
 import { indexPrivateFiles } from '../output/private-file-index';

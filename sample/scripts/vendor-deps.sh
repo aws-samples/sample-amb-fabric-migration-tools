@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 #
 # Vendor Go dependencies for both chaincodes so they can be deployed to
 # AMB peers, which have no internet access.

@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * An in-process stand-in for an ordering service, enough to drive `run` through its invariants:
  * Broadcast (one verdict per envelope, optional rejections and faults), a block cutter (a batch closes `batchMs` after

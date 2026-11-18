@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { NetworkAdapter } from '../connection/network-adapter';
 import { createLogger } from '../utils/logger';
 import { PROBE_RETRY, withRetry } from '../utils/retry';

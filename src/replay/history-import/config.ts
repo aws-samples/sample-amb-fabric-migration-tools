@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * Validate and resolve `chaincode.historyImport`, the opt-in to resilient,
  * idempotent Tier 3 history replay.

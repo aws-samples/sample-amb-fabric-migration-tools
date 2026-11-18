@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import * as crypto from 'crypto';
 
 export const sha256 = (b: Uint8Array | string): string => crypto.createHash('sha256').update(b).digest('hex');

@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 #
 # Deploy one chaincode to one channel as a multi-org definition: every member
 # installs it on its own peer and approves it for its own org, then the first

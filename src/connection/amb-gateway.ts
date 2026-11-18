@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import * as crypto from 'crypto';
 import * as fs from 'fs';
 import * as grpc from '@grpc/grpc-js';

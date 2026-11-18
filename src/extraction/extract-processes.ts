@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { spawn } from 'child_process';
 import { ExtractOptions } from '../types';
 import { FileLayoutManager } from '../output/file-layout-manager';

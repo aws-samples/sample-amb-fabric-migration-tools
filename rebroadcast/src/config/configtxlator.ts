@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * The configtxlator boundary. Config JSON (as configtxlator prints it) is the form the transform and the offline
  * chain simulation work in; computing an update delta is left to configtxlator because a bug there would mint wrong

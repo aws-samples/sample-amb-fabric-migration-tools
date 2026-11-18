@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { keyPartitionKey } from '../src/replay/adapters/dynamodb-keys';
 import {
   DYNAMODB_MAX_ATTEMPTS,

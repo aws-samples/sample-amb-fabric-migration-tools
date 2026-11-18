@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 #
 # Member kit: everything one non-lead member of a multi-member migration runs,
 # against its own peer, as its own identity, and hands to the lead.

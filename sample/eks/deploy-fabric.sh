@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 # Deploy the Fabric 2.5 destination on the fabric-eks cluster with hlf-operator. Run on the devbox.
 # Safe to rerun after a partial setup: existing resources are verified or converged. Registrar secrets are generated once into ~/fabric-eks/secrets (0600).
 #

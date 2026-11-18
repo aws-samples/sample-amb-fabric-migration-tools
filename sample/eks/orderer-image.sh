@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 # Switch the fabric-eks orderers between the stock image and the patched migration orderer
 # (rebroadcast/orderer-patch/), on the devbox. The patched orderer is for the migration window only.
 #

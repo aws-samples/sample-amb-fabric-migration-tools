@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * Run `work` over every item of `source` with at most `limit` in flight, and
  * hand each item's results to `emit` in source order.

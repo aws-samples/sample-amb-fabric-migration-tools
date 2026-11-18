@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * Where the config chain starts: the destination's live config, or — self-managed, offline — the genesis config
  * `genesis` would write for this archive (round-tripped through configtxlator, so it has the shape the orderer's

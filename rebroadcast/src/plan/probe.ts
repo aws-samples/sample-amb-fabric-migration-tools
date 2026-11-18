@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * `probe` (design §8): how long the destination takes to ingest a block's worth of envelopes, measured on a SCRATCH
  * channel, so the batch timeout can be chosen before a one-shot channel is at stake.

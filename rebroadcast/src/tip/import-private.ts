@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * `tip import-private` (design §9, option (a): the tool's own importer, independent of the replay path).
  *

@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 # docs/eks-fabric-runbook.md, step 3, on the devbox: gp3 StorageClass, Istio with an internal NLB (TLS passthrough on
 # 443), hlf-operator. Idempotent. Prints the NLB hostname for the Route 53 record of step 3.
 #

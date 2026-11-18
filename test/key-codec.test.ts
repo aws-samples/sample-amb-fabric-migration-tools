@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { decodeStorageKey, encodeStorageKey } from '../src/utils/key-codec';
 
 /** U+0000, kept as a code point so this file stays free of control chars. */

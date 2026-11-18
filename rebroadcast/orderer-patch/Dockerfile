@@ -1,3 +1,6 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # The patched binary is built from Fabric v2.5.14 (fabric-v2.5.14-migration.patch),
 # so the base image is that release, pinned by digest: the floating 2.5 tag moves
 # to later releases. Change both together.

@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { LegacyFabricGateway } from '../src/connection/legacy-fabric-gateway';
 
 /**

@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { ValueEncoding } from './utils/value-codec';
 import { PrivateCollectionCoverage } from './extraction/private-data/coverage';
 

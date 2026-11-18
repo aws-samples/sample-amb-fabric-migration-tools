@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * `plan`: everything computable from the archive and the descriptor (design §8), before anything is sent.
  *   - archive integrity (digests, data hashes, hash chain)

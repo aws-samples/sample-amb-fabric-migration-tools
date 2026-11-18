@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import * as crypto from 'crypto';
 
 /** Order n of the P-256 group, for the low-S rule Fabric enforces. */

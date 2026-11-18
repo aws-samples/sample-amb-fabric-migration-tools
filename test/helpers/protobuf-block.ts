@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * Encode the decoded-block objects the walker tests build into the protobuf
  * bytes qscc actually serves.

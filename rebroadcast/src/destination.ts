@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * A destination opened from its descriptor: clients for its orderer and peers, and the identities the tool signs with.
  */

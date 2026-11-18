@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import * as crypto from 'crypto';
 import { nodeEcdsaSigner, useNodeSigner } from '../src/connection/node-signer';
 import { ADMIN_CERT_PEM } from './helpers/test-certs';

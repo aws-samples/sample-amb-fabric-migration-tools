@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * The ledger facts a destination must hold, rebuilt from the archive's blocks exactly as a committing peer applies
  * them: only VALID endorser transactions (the source peer's validation codes, metadata[2]), every public write and

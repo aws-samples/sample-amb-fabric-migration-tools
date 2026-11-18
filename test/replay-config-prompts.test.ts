@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { Interface } from 'readline/promises';
 import { promptReplayConfig } from '../src/cli/replay-config-prompts';
 import { Manifest } from '../src/types';

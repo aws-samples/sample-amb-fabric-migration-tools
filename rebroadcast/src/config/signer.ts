@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * Signing without the `peer` binary: ECDSA P-256 / SHA-256, DER, low-S (Fabric rejects high-S; Node returns one about
  * half the time — measured 50.5–51.3 % of 2,000), ConfigSignature, the CONFIG_UPDATE envelope, the cut marker.

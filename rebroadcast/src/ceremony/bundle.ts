@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * The config-signing ceremony (design §7), for consortiums where each member holds its own admin key.
  *

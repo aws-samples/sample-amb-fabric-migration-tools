@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { applyUpdate, firstDiff, touchesOrdererOrChannel, appOrgs } from '../src/config/chain';
 
 const org = (name: string, version = '0') => ({ version, mod_policy: 'Admins', groups: {}, values: { MSP: { version: '0', mod_policy: 'Admins', value: { config: { name } } } }, policies: {} });

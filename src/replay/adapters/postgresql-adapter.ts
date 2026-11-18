@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { Pool } from 'pg';
 import { parse as parseConnectionString } from 'pg-connection-string';
 import {

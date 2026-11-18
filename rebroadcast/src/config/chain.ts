@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * Applying a ConfigUpdate to a config offline, the way the orderer does (configtx update.go, computeUpdateResult).
  * This is what lets the whole chain of updates be computed, and so signed, before anything is sent (design §7;

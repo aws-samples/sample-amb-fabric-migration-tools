@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 #
 # Build a Fabric 2.5 destination that mirrors a multi-member source: one org
 # per source member, the same channels with the same members, and every

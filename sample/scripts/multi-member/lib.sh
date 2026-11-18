@@ -1,3 +1,6 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 # Shared helpers for the multi-member harness. Source it; do not run it.
 #
 # Every member of the network gets an env file under $MM_HOME/members/, written

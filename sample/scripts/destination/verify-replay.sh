@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 # Verify a replay using the same replay config and implementation as the CLI.
 #
 # This wrapper intentionally contains no chaincode-specific query logic. The old

@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * Chaincode queries without the `peer` binary or a Gateway: a signed proposal to a peer's Endorser service
  * (`/protos.Endorser/ProcessProposal`), whose response is read and never submitted. Used by `verify` to call the

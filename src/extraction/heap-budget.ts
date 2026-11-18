@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import * as os from 'os';
 import * as v8 from 'v8';
 import { ExtractionError } from '../utils/errors';

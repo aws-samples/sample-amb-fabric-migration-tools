@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 # Remove the fabric-eks test environment. Run from the laptop with AWS_PROFILE set. Irreversible: ledgers are deleted.
 set -euo pipefail
 export AWS_REGION=${AWS_REGION:?set AWS_REGION to the cluster region}

@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { Archive } from '../src/archive/reader';
 import { compare } from '../src/compare/compare';
 import { requirePeersCaughtUp, Destination } from '../src/destination';

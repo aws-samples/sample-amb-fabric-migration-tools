@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * `run` and `compare` against an in-process orderer: the happy path and each refusal, with the exit code it must carry.
  * Needs `configtxlator` on PATH (it reads the destination's genesis config); skipped without it.

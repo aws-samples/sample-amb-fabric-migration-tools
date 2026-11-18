@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 # Every check that needs no Fabric network or AWS account, in one run. See docs/testing.md (Level 0).
 #
 #   scripts/review-check.sh            # from the repository root

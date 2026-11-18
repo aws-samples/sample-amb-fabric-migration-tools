@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 /**
  * `tip chaincode-check` (design §9). Replaying the archive also replays the source's `_lifecycle` writes, so each
  * chaincode's SOURCE definition is committed on the destination at the source's sequence. No destination org approved

@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 # Collect what fabric-rebroadcast needs from the hlf-operator deployment, on the devbox:
 #   ~/fabric-eks/out/{ord,org1..N}/  CA and TLS CA certificates, MSP dirs, admin identities (keys 0600)
 #   ~/fabric-eks/out/template.block  configtxgen block whose Orderer group is this ordering service (genesisTemplate)
