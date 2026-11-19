@@ -46,6 +46,7 @@ removed.
 | A source peer serving a chain that is not the network's | Each block's `data_hash` and the hash chain from block 0 are checked; multi-member runs compare members' outputs (`merge`) and final header hashes | Orderer signatures are not checked. For evidence after AMB shuts down, verify them against an independently anchored genesis block |
 | Writing to the wrong destination | Replay and verify refuse a destination whose genesis blocks differ from `destinationFingerprint` ([binding a config](replay-config-reference.md#binding-a-config-to-one-destination-destinationfingerprint)); re-broadcast checks the channel name, and on resume the destination's genesis block against its run state | Setting the fingerprint for every run that matters (it is optional) |
 | Talking to an impostor destination | A TLS endpoint without a named CA is refused rather than checked against system roots; plaintext gRPC only with `--allow-insecure`; PostgreSQL beyond loopback only with certificate-verified TLS ([TLS](replay-config-reference.md#tls)) | Keeping CA files and connection profiles under change control |
+| Old source identities acting on a re-broadcast destination | None: the destination keeps each org's AMB CA root so the original signatures validate | Removing the AMB roots and AMB-issued admin certificates from each org's MSP after cutover ([close the migration path](rebroadcast.md#close-the-migration-path)) |
 | Unauthorised writes through the migration contract | The contract refuses every MSP not in its writer list, which ships empty and is approved with the chaincode package | Removing the contract and revoking the migration identities before application traffic is switched ([cutover runbook, step 11](cutover-rehearsal-runbook.md#the-window)) |
 | Private plaintext read through the migration contract | None in the contract: its read functions are not gated, so a verify can run as any member | The same removal at cutover; network access to the destination limited to the migration host until then |
 | A tampered or substituted archive sent by re-broadcast | `run` checks sealed digests, data hashes and the hash chain before contacting the destination, and resumes only from the archive it started with (or that archive extended) | Protecting the archive like the extraction output; the digest list is not signed |
@@ -62,7 +63,8 @@ removed.
   who can write the directory.
 - **Network isolation of the destination is not enforced.** The tools cannot see it; the migration contract must not
   outlive the migration.
-- **The patched orderer** (`ORDERER_MIGRATION_SKIP_EXPIRATION`, cut markers) relaxes checks a stock orderer makes. Use
-  it only on a fresh destination during the migration window.
+- **The patched orderer** (`ORDERER_MIGRATION_SKIP_EXPIRATION`, cut markers) and Fabric's own
+  `General.Authentication.NoExpirationChecks` relax checks a stock orderer makes. Use them only on a fresh destination
+  during the migration window.
 - **Dependencies** are third-party npm packages, pinned by lockfile and checked by `npm audit` in
   [`scripts/review-check.sh`](../scripts/review-check.sh); keep them current when you adopt the code.

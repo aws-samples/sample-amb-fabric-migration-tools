@@ -79,7 +79,9 @@ The `rebroadcast/` tool (`fabric-rebroadcast`) re-submits the original signed tr
 - Signers whose certificates have expired are refused by a stock orderer (`plan` reports them as `BLOCKING
   [E6-expired-signers]`; `run` stops with exit 3, `broadcast client identity expired`, at the first one). The patched
   orderer with `ORDERER_MIGRATION_SKIP_EXPIRATION=true` accepts them; both were run on EKS
-  ([EKS runbook](eks-fabric-runbook.md#expired-signers)). Peers do not check signer expiry when they validate.
+  ([EKS runbook](eks-fabric-runbook.md#expired-signers)). Fabric's own `General.Authentication.NoExpirationChecks`
+  setting also accepts them on a stock orderer: measured through `run` from an AMB Fabric 2.2 channel to a stock
+  Fabric 2.5 destination, not yet on EKS. Peers do not check signer expiry when they validate.
 - Not yet tested across separate hosts at scale, or with an orderer-only source config block. The signing ceremony and
   tip phase have run together on Kubernetes for five orgs, with private-data reconciliation between destination peers
   ([EKS runbook](eks-fabric-runbook.md#five-orgs-and-private-data-reconciliation)).

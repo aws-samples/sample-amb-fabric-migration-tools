@@ -207,6 +207,12 @@ signed by that member: an AMB channel creation takes the org definitions from AM
   `compare` via the orderers and the peer matched every block, validation codes included (the peers do not check signer
   expiry when they validate). `orderer-image.sh` waits for the operator to roll the change out (gotcha 11).
 
+  A stock orderer can accept them too: set `ORDERER_GENERAL_AUTHENTICATION_NOEXPIRATIONCHECKS=true` on every orderer for
+  the window. Re-broadcasting an AMB Fabric 2.2 channel, set up the same way as above, to a stock Fabric 2.5
+  destination, `run` stopped at the first expired-signer block (exit 3) without it; with it, the same orderer resumed
+  there, and `compare` via the peer matched every block, validation codes included. That setting also lets an expired
+  identity read blocks. It has not been run on EKS.
+
 ## Five orgs and private-data reconciliation
 
 Orgs can be added to a running cluster: re-run `deploy-fabric.sh` and `artifacts.sh` with every MSP ID in `SOURCE_MSP_IDS`
